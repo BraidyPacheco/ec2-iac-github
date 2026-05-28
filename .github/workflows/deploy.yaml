@@ -25,4 +25,6 @@ jobs:
         run: |
           aws cloudformation deploy \
           --template-file template/ec2.yaml \
-          --stack-name ec2-stack-clase
+          --stack-name ec2-stack-clase 
+
+          
