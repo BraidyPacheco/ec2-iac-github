@@ -1,0 +1,22 @@
+# .github/workflows/destroy.yml
+name: Destroy EC2 Stack
+
+on:
+  workflow_dispatch:  # se ejecuta manualmente desde GitHub
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Delete CloudFormation stack
+        run: |
+          aws cloudformation delete-stack --stack-name ec2-stack-clase
+          aws cloudformation wait stack-delete-complete --stack-name ec2-stack-clase
+          echo "✅ Stack eliminado correctamente" 
